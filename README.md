@@ -28,10 +28,6 @@ you find any mistakes or typos.
   1. [Constructors](#constructors)
   1. [Modules](#modules)
   1. [File Structure](#file-structure)
-  1. [Testing](#testing)
-  1. [Performance](#performance)
-  1. [Resources](#resources)
-  1. [In the Wild](#in-the-wild)
   1. [Contributors](#contributors)
   1. [License](#license)
 
@@ -71,7 +67,7 @@ you find any mistakes or typos.
     print(foo[2], bar[2]) -- => 2   2		
     ```
 
-    **[[⬆]](#TOC)**
+  **[[⬆]](#TOC)**
 
 ## <a name='tables'>Tables</a>
 
@@ -85,8 +81,8 @@ you find any mistakes or typos.
 
     -- good
     local player = {
-      name = 'Jack',
-      class = 'Rogue'
+    	name = 'Jack',
+    	class = 'Rogue'
     }
     ```
 
@@ -95,9 +91,9 @@ you find any mistakes or typos.
     ```lua
     -- bad
     local player = {
-      attack = function() 
-      -- ...stuff...
-      end
+    	attack = function() 
+    	-- ...stuff...
+    	end
     }
 
     -- good
@@ -105,12 +101,11 @@ you find any mistakes or typos.
     end
 
     local player = {
-      attack = attack
+    	attack = attack
     }
     ```
 
-  - Consider `nil` properties when selecting lengths.
-    A good idea is to store an `n` property on lists that contain the length
+  - Consider `nil` properties when selecting lengths. A good idea is to store an `n` property on lists that contain the length
     (as noted in [Storing Nils in Tables](http://lua-users.org/wiki/StoringNilsInTables))
 
     ```lua
@@ -128,20 +123,20 @@ you find any mistakes or typos.
     ```lua
     -- bad
     local me = {
-      fullname = function(this)
-        return this.first_name + ' ' + this.last_name
-      end
+    	fullName = function(this)
+    		return this.firstName + ' ' + this.lastName
+    	end
     }
 
     -- good
     local me = {
-      fullname = function(self)
-        return self.first_name + ' ' + self.last_name
-      end
+    	fullName = function(self)
+    		return self.firstName + ' ' + self.lastName
+    	end
     }
     ```
 
-    **[[⬆]](#TOC)**
+  **[[⬆]](#TOC)**
 
 ## <a name='strings'>Strings</a>
 
@@ -161,8 +156,7 @@ you find any mistakes or typos.
     local fullName = 'Bob ' .. self.lastName
     ```
 
-  - Strings longer than 80 characters should be written across multiple lines 
-    using concatenation. This allows you to indent nicely.
+  - Strings longer than 80 characters should be written across multiple lines     using concatenation. This allows you to indent nicely.
 
     ```lua
     -- bad
@@ -179,39 +173,39 @@ you find any mistakes or typos.
 
     -- bad
     local errorMessage = [[This is a super long error that
-      was thrown because of Batman.
-      When you stop to think about
-      how Batman had anything to do
-      with this, you would get nowhere
-      fast.]]
+    	was thrown because of Batman.
+    	When you stop to think about
+    	how Batman had anything to do
+    	with this, you would get nowhere
+    	fast.]]
 
     -- good
     local errorMessage = 'This is a super long error that ' ..
-      'was thrown because of Batman. ' ..
-      'When you stop to think about ' ..
-      'how Batman had anything to do ' ..
-      'with this, you would get nowhere ' ..
-      'fast.'
+    	'was thrown because of Batman. ' ..
+    	'When you stop to think about ' ..
+    	'how Batman had anything to do ' ..
+    	'with this, you would get nowhere ' ..
+    	'fast.'
     ```
 
-    **[[⬆]](#TOC)**
+  **[[⬆]](#TOC)**
 
 
 ## <a name='functions'>Functions</a>
+
   - Prefer lots of small functions to large, complex functions. [Smalls Functions Are Good For The Universe](http://kikito.github.io/blog/2012/03/16/small-functions-are-good-for-the-universe/).
 
-  - Prefer function syntax over variable syntax. This helps differentiate
-    between named and anonymous functions.
+  - Prefer function syntax over variable syntax. This helps differentiate between named and anonymous functions.
 
     ```lua
     -- bad
     local nope = function(name, options)
-      -- ...stuff...
+    	-- ...stuff...
     end
 
     -- good
     local function yup(name, options)
-      -- ...stuff...
+    	-- ...stuff...
     end
     ```
 
@@ -220,12 +214,12 @@ you find any mistakes or typos.
     ```lua
     -- bad
     local function nope(name, options, arg) 
-      -- ...stuff...
+    	-- ...stuff...
     end
 
     -- good
     local function yup(name, options, ...)
-      -- ...stuff...
+    	-- ...stuff...
     end
     ```
 
@@ -233,22 +227,22 @@ you find any mistakes or typos.
 
     ```lua
     -- bad
-    local is_good_name = function(name, options, arg)
-      local is_good = #name > 3
-      is_good = is_good and #name < 30
+    local isGoodName = function(name, options, arg)
+    	local isGood = #name > 3
+    	isGood = isGood and #name < 30
 
-      -- ...stuff...
+    	-- ...stuff...
 
-      return is_bad
+    	return is_bad
     end
 
     -- good
-    local is_good_name = function(name, options, args)
-      if #name < 3 or #name > 30 then return false end
+    local isGoodName = function(name, options, args)
+    	if #name < 3 or #name > 30 then return false end
 
-      -- ...stuff...
+    	-- ...stuff...
 
-      return true
+    	return true
     end
     ```
 
@@ -261,8 +255,8 @@ you find any mistakes or typos.
 
     ```lua
     local luke = {
-      jedi = true,
-      age = 28
+    	jedi = true,
+    	age = 28
     }
 
     -- bad
@@ -272,29 +266,27 @@ you find any mistakes or typos.
     local isJedi = luke.jedi
     ```
 
-  - Use subscript notation `[]` when accessing properties with a variable
-    or if using a table as a list.
+  - Use subscript notation `[]` when accessing properties with a variable or if using a table as a list.
 
     ```lua
     local luke = {
-      jedi = true,
-      age = 28
+    	jedi = true,
+    	age = 28
     }
 
     local function getProp(prop) 
-      return luke[prop]
+    	return luke[prop]
     end
 
     local isJedi = getProp('jedi')
     ```
 
-    **[[⬆]](#TOC)**
+  **[[⬆]](#TOC)**
 
 
 ## <a name='variables'>Variables</a>
 
-  - Always use `local` to declare variables. Not doing so will result in
-    global variables to avoid polluting the global namespace.
+  - Always use `local` to declare variables. Not doing so will result in global variables to avoid polluting the global namespace.
 
     ```lua
     -- bad
@@ -304,44 +296,43 @@ you find any mistakes or typos.
     local superPower = SuperPower()
     ```
 
-  - Assign variables at the top of their scope where possible. This makes it
-    easier to check for existing variables.
+  - Assign variables at the top of their scope where possible. This makes it easier to check for existing variables.
 
     ```lua
     -- bad
     local bad = function()
-      test()
-      print('doing stuff..')
+    	test()
+    	print('doing stuff..')
 
-      //..other stuff..
+    	//..other stuff..
 
-      local name = getName()
+    	local name = getName()
 
-      if name == 'test' then
-        return false
-      end
+    	if name == 'test' then
+    		return false
+    	end
 
-      return name
+    	return name
     end
 
     -- good
     local function good()
-      local name = getName()
+    	local name = getName()
 
-      test()
-      print('doing stuff..')
+    	test()
+    	print('doing stuff..')
 
-      //..other stuff..
+    	//..other stuff..
 
-      if name == 'test' then
-        return false
-      end
+    	if name == 'test' then
+    		return false
+    	end
 
-      return name
+    	return name
     end
     ```
 
-    **[[⬆]](#TOC)**
+  **[[⬆]](#TOC)**
 
 
 ## <a name='conditionals'>Conditional Expressions & Equality</a>
@@ -352,95 +343,90 @@ you find any mistakes or typos.
     local str = ''
 
     if str then
-      -- true
+    	-- true
     end
     ```
 
-  - Use shortcuts when you can, unless you need to know the difference between
-    false and nil.
+  - Use shortcuts when you can, unless you need to know the difference between false and nil.
 
     ```lua
     -- bad
     if name ~= nil then
-      -- ...stuff...
+    	-- ...stuff...
     end
 
     -- good
     if name then
-      -- ...stuff...
+    	-- ...stuff...
     end
     ```
 
-  - Prefer *true* statements over *false* statements where it makes sense. 
-    Prioritize truthy conditions when writing multiple conditions.
+  - Prefer *true* statements over *false* statements where it makes sense. Prioritize truthy conditions when writing multiple conditions.
 
     ```lua
     --bad
     if not thing then
-      -- ...stuff...
+    	-- ...stuff...
     else
-      -- ...stuff...
+    	-- ...stuff...
     end
 
     --good
     if thing then
-      -- ...stuff...
+    	-- ...stuff...
     else
-      -- ...stuff...
+    	-- ...stuff...
     end
     ```
 
-  - Prefer defaults to `else` statements where it makes sense. This results in
-    less complex and safer code at the expense of variable reassignment, so
-    situations may differ.
+  - Prefer defaults to `else` statements where it makes sense. This results in less complex and safer code at the expense of variable reassignment, so situations may differ.
 
     ```lua
     --bad
-    local function full_name(first, last)
-      local name
+    local function fullName(first, last)
+    	local name
 
-      if first and last then
-        name = first .. ' ' .. last
-      else
-        name = 'John Smith'
-      end
+    	if first and last then
+    		name = first .. ' ' .. last
+    	else
+    		name = 'John Smith'
+    	end
 
-      return name
+    	return name
     end
 
     --good
-    local function full_name(first, last)
-      local name = 'John Smith'
+    local function fullName(first, last)
+    local name = 'John Smith'
 
-      if first and last then
-        name = first .. ' ' .. last
-      end
+    	if first and last then
+    		name = first .. ' ' .. last
+    	end
 
-      return name
+    	return name
     end
     ```
 
   - Short ternaries are okay.
 
     ```lua
-    local function default_name(name)
-      -- return the default 'Waldo' if name is nil
-      return name or 'Waldo'
+    local function defaultName(name)
+    	-- return the default 'Waldo' if name is nil
+    	return name or 'Waldo'
     end
 
-    local function brew_coffee(machine)
-      return machine and machine.is_loaded and 'coffee brewing' or 'fill your water'
+    local function brewCoffee(machine)
+    	return machine and machine.is_loaded and 'coffee brewing' or 'fill your water'
     end
     ```
 
 
-    **[[⬆]](#TOC)**
+  **[[⬆]](#TOC)**
 
 
 ## <a name='blocks'>Blocks</a>
 
-  - Single line blocks are okay for *small* statements. Try to keep lines to 80 characters.
-    Indent lines if they overflow past the limit.
+  - Single line blocks are okay for *small* statements. Try to keep lines to 120 characters. Indent lines if they overflow past the limit.
 
     ```lua
     -- good
@@ -448,18 +434,22 @@ you find any mistakes or typos.
 
     -- good
     if test then
-      return false
+    	return false
     end
 
     -- bad
-    if test < 1 and do_complicated_function(test) == false or seven == 8 and nine == 10 then do_other_complicated_function()end
+    if test < 1 and doComplicatedFunction(test) == false or seven == 8 and nine == 10 then doOtherComplicatedFunction() end
 
     -- good
-    if test < 1 and do_complicated_function(test) == false or
-        seven == 8 and nine == 10 then
+    if
+    	test < 1 and
+    	doComplicatedFunction(test) == false or
+    	seven == 8 and
+    	nine == 10
+    then
 
-      do_other_complicated_function() 
-      return false 
+    	doOtherComplicatedFunction() 
+    	return false 
     end
     ```
 
@@ -468,7 +458,7 @@ you find any mistakes or typos.
 
 ## <a name='whitespace'>Whitespace</a>
 
-  - Use soft tabs set to 2 spaces. Tab characters and 4-space tabs result in public flogging.
+  - Use hard tabs
 
     ```lua
     -- bad
@@ -478,12 +468,12 @@ you find any mistakes or typos.
 
     -- bad
     function() 
-    ∙local name
+    ∙∙local name
     end
 
     -- good
     function() 
-    ∙∙local name
+    ————local name
     end
     ```
 
@@ -498,14 +488,14 @@ you find any mistakes or typos.
 
     -- bad
     dog.set('attr',{
-      age = '1 year',
-      breed = 'Bernese Mountain Dog'
+    	age = '1 year',
+    	breed = 'Bernese Mountain Dog'
     })
 
     -- good
     dog.set('attr', {
-      age = '1 year',
-      breed = 'Bernese Mountain Dog'
+    	age = '1 year',
+    	breed = 'Bernese Mountain Dog'
     })
     ```
 
@@ -514,16 +504,16 @@ you find any mistakes or typos.
     ```lua
     -- bad
     (function(global) 
-      -- ...stuff...
+    	-- ...stuff...
     end)(self)
     ```
 
     ```lua
     -- good
     (function(global) 
-      -- ...stuff...
+    	-- ...stuff...
     end)(self)
-
+    ↵
     ```
 
   - Surround operators with spaces.
@@ -559,20 +549,20 @@ you find any mistakes or typos.
     ```lua
     --bad
     if thing then
-      -- ...stuff...
+    	-- ...stuff...
     end
     function derp()
-      -- ...stuff...
+    	-- ...stuff...
     end
     local wat = 7
 
     --good
     if thing then
-      -- ...stuff...
+    	-- ...stuff...
     end
 
     function derp()
-      -- ...stuff...
+    	-- ...stuff...
     end
 
     local wat = 7
@@ -584,28 +574,28 @@ you find any mistakes or typos.
 
 ## <a name='commas'>Commas</a>
 
-  - Leading commas aren't okay. An ending comma on the last item is okay but discouraged.
+  - Leading commas aren't okay. An ending comma on the last item is okay.
 
     ```lua
     -- bad
     local thing = {
-      once = 1
-    , upon = 2
-    , aTime = 3
+    	once = 1
+    ,	upon = 2
+    ,	aTime = 3
     }
 
     -- good
     local thing = {
-      once = 1,
-      upon = 2,
-      aTime = 3
+    	once = 1,
+    	upon = 2,
+    	aTime = 3
     }
 
-    -- okay
+    -- good
     local thing = {
-      once = 1,
-      upon = 2,
-      aTime = 3,
+    	once = 1,
+    	upon = 2,
+    	aTime = 3,
     }
     ```
 
@@ -661,18 +651,17 @@ you find any mistakes or typos.
 
 ## <a name='naming-conventions'>Naming Conventions</a>
 
-  - Avoid single letter names. Be descriptive with your naming. You can get
-    away with single-letter names when they are variables in loops.
+  - Avoid single letter names. Be descriptive with your naming. You can get away with single-letter names when they are variables in loops.
 
     ```lua
     -- bad
     local function q() 
-      -- ...stuff...
+    	-- ...stuff...
     end
 
     -- good
     local function query() 
-      -- ..stuff..
+    	-- ..stuff..
     end
     ```
 
@@ -681,31 +670,45 @@ you find any mistakes or typos.
     ```lua
     --good
     for _, name in pairs(names) do
-      -- ...stuff...
+    	-- ...stuff...
     end
     ```
 
-  - Use snake_case when naming objects, functions, and instances. Tend towards
+  - Use camelCase when naming objects, local functions, and instances. Tend towards
     verbosity if unsure about naming.
 
     ```lua
     -- bad
     local OBJEcttsssss = {}
-    local thisIsMyObject = {}
+    local this_is_my_object = {}
     local this-is-my-object = {}
 
-    local c = function()
-      -- ...stuff...
+    local function dothathing()
+    	-- ...stuff...
     end
 
     -- good
-    local this_is_my_object = {}
+    local thisIsMyObject = {}
 
-    local function do_that_thing()
-      -- ...stuff...
+    local function doThatThing()
+    	-- ...stuff...
     end
     ```
 
+  - Use lowercase for global functions.
+    
+    ```lua
+    -- bad
+    function aLibraryFunction()
+    	-- ...stuff...
+    end
+
+    -- good
+    function alibraryfunction()
+    	-- ...stuff...
+    end
+    ```
+ 
   - Use PascalCase for factories.
 
     ```lua
@@ -724,12 +727,12 @@ you find any mistakes or typos.
     ```lua
     --bad
     local function evil(alignment)
-      return alignment < 100
+    	return alignment < 100
     end
 
     --good
-    local function is_evil(alignment)
-      return alignment < 100
+    local function isEvil(alignment)
+    	return alignment < 100
     end
     ```
 
@@ -745,9 +748,9 @@ you find any mistakes or typos.
     local thing = { }
 
     local meta = {
-      __call = function(self, key, vars)
-        print key
-      end
+    	__call = function(self, key, vars)
+    		print key
+    	end
     }
 
 
@@ -763,66 +766,10 @@ you find any mistakes or typos.
 ## <a name='file-structrure'>File Structure</a>
 
   - Files should be named in all lowercase.
-  - Lua files should be in a top-level `src` folder. The main library file should 
-    be called `modulename.lua`.
-  - Rockspecs, license, readme, etc should be in the top level.
-  - Tests should be in a top-level spec folder.
-  - Executables should be in a top-level bin folder.
-  - Example:
-
-    ```
-    ./my_module
-      bin/
-        script.sh
-
-      spec/
-        my_module_spec.lua
-        some_file.lua
-
-      src/
-        my_module.lua
-        some_file.lua
-
-      README.md
-      LICENSE.md
-    ```
-
-## <a name='testing'>Testing</a>
-
-  - Use [busted](http://olivinelabs.com/busted) and write lots of tests in a /spec 
-    folder. Separate tests by module.
-  - Use descriptive `describe` and `it` blocks so it's obvious to see what
-    precisely is failing.
-  - Test interfaces. Don't test private methods. If you need to test something
-    that is private, it probably shouldn't be private in the first place.
-  - Example:
-
-    ```
-    ./my_module
-      bin/
-        script.sh
-
-      spec/
-        my_module_spec.lua
-
-        util/
-          formatters_spec.lua
-
-      src/
-        my_module.lua
-
-        util/
-          formatters.lua
-
-      README.md
-      LICENSE.md
-    ```
-
-    **[[⬆]](#TOC)**
 
 ## <a name='contributors'>Contributors</a>
 
-  - [View contributors](https://github.com/Olivine-Labs/lua-style-guide/graphs/contributors)
+  - [View contributors](https://github.com/Tibia-WindBot/lua-style-guide/graphs/contributors)
 
     **[[⬆]](#TOC)**
 
